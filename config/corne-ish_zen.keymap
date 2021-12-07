@@ -1,6 +1,6 @@
 /*
 *
-* Copyright (c) 2021 Darryl deHaan
+* Copyright (c) 2021 lowprokb.ca
 * SPDX-License-Identifier: MIT
 *
 */
@@ -9,51 +9,114 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+#define QWERTY 0
+#define GAMING 1
+#define LOWER  2
+#define RAISE  3
+#define NUMROW 4
+#define ADJUST 5
+#define CONFIG 6
+
+#define NUBS NON_US_BACKSLASH
+#define LS1 LS(NUMBER_1)
+#define LS2 LS(NUMBER_2)
+#define LS3 LS(NUMBER_3)
+#define LS4 LS(NUMBER_4)
+#define LS5 LS(NUMBER_5)
+#define LS6 LS(NUMBER_6)
+#define LS7 LS(NUMBER_7)
+#define LS8 LS(NUMBER_8)
+#define LS9 LS(NUMBER_9)
+#define LS0 LS(NUMBER_0)
+#define RA1 RA(NUMBER_1)
+#define RA2 RA(NUMBER_2)
+#define RA3 RA(NUMBER_3)
+#define RA4 RA(NUMBER_4)
+#define RA5 RA(NUMBER_5)
+#define RA6 RA(NUMBER_6)
+#define RA7 RA(NUMBER_7)
+#define RA8 RA(NUMBER_8)
+#define RA9 RA(NUMBER_9)
+#define RA0 RA(NUMBER_0)
+
+#define LSNUBS LS(NUBS)
+#define RAEQUAL RA(EQUAL)
+#define RAMINUS RA(MINUS)
+#define RANON_US_HASH RA(NON_US_HASH)
+#define RANUBS RA(NUBS)
+#define RARBKT RA(RBKT)
+
 / {
         keymap {
                 compatible = "zmk,keymap";
 
                 default_layer {
                         label = "QWERTY";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
                         bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LGUI &mo 1 &kp SPACE   &kp RET &mo 2 &kp RALT
+   &kp TAB         &kp Q &kp W &kp E &kp R        &kp T    &kp Y &kp U &kp I    &kp O   &kp P    &kp LBKT
+   &mt LCTRL ESC   &kp A &kp S &kp D &lt ADJUST F &kp G    &kp H &kp J &kp K    &kp L   &kp SEMI &kp QUOT
+   &mt LSHIFT NUBS &kp Z &kp X &kp C &kp V        &kp B    &kp N &kp M &kp CMMA &kp DOT &kp FSLH &mt RSHIFT ENTER
+                      &kp LALT &mo LOWER &mt LCTRL BKSP    &mt LSHIFT SPC &mo RAISE &kp LGUI
                         >;
                 };
-                lower_layer {
-                        label = "NUMBER";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+
+                gaming_layer {
+                        label = "GAMING";
                         bindings = <
-   &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &kp LSHFT  &trans       &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                          	        &kp LGUI     &trans       &kp SPACE      &kp RET  &trans   &kp RALT
+   &kp TAB   &kp Q &kp W &kp E &kp R &kp T    &kp Y &kp U &kp I    &kp O   &kp P    &kp BKSP
+   &kp LALT  &kp A &kp S &kp D &kp F &kp G    &kp H &kp J &kp K    &kp L   &kp QUOT &kp ENTER
+   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B    &kp N &kp M &kp CMMA &kp DOT &kp FSLH &kp RSFT
+               &kp LCTL &kp SPC &mo NUMROW    &kp SPC &mo CONFIG &none
+                        >;
+                };
+
+                lower_layer {
+                        label = "LOWER";
+                        bindings = <
+   &kp NUBS   &kp F1  &kp F2  &kp F3 &kp F4 &kp F5     &kp RCTRL &kp EQUAL   &kp RBKT   &kp NON_US_HASH   &trans &trans
+   &kp LSNUBS &kp F6  &kp F7  &kp F8 &kp F9 &kp F10    &kp LALT  &kp PLUS    &kp RBRC   &kp TILDE2        &trans &trans
+   &kp RANUBS &kp F11 &kp F12 &none  &none  &none      &kp DEL   &kp RAEQUAL &kp RARBKT &kp RANON_US_HASH &trans &trans
+                           &trans &mo LOWER &kp DEL    &none &mo CONFIG &trans
                         >;
                 };
 
                 raise_layer {
-                        label = "SYMBOL";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        label = "RAISE";
                         bindings = <
-   &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT        &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC        &kp RBRC &kp PIPE &kp TILDE
-                    	     &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
+   &trans     &kp N1  &kp N2  &kp N3  &kp N4  &kp N5     &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp MINUS
+   &trans     &kp LS1 &kp LS2 &kp LS3 &kp LS4 &kp LS5    &kp LS6 &kp LS7 &kp LS8 &kp LS9 &kp LS0 &kp UNDER
+   &kp RANUBS &kp RA1 &kp RA2 &kp RA3 &kp RA4 &kp RA5    &kp RA6 &kp RA7 &kp RA8 &kp RA9 &kp RA0 &kp RAMINUS
+                            &trans &mo CONFIG &kp DEL    &trans &mo RAISE &trans
+                        >;
+                };
+
+                numrow_layer {
+                        label = "NUMROW";
+                        bindings = <
+   &kp ESC   &kp N1 &kp N2 &kp N3    &kp N4    &kp N5       &kp N6   &kp N7   &kp N8 &kp N9    &kp N0   &kp DEL
+   &kp GRAVE &none  &none  &kp PSCRN &kp MINUS &kp EQUAL    &kp LEFT &kp DOWN &kp UP &kp RIGHT &kp SEMI &none
+   &none     &none  &none  &kp BSLH  &kp LBKT  &kp RBKT     &none    &none    &none  &none     &none    &none
+                          &mo CONFIG &kp LCTL &mo NUMROW    &kp SPC &mo ADJUST &kp F13
+                        >;
+                };
+
+                adjust_layer {
+                        label = "ADJUST";
+                        bindings = <
+   &none &none &none &none &none      &none    &none    &none    &none  &none     &none &none
+   &none &none &none &none &mo ADJUST &none    &kp LEFT &kp DOWN &kp UP &kp RIGHT &none &none
+   &none &none &none &none &none      &none    &none    &none    &none  &none     &none &none
+                     &none &none      &none    &none &none &none
+                        >;
+                };
+
+                config_layer {
+                        label = "CONFIG";
+                        bindings = <
+   &reset     &none        &none        &none        &none        &none           &none &none &none &none &none &none
+   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &none &none &none &none &none &none
+   &none      &none        &none        &none        &none        &none           &none &none &none &none &none &none
+                                                &mo CONFIG &kp LCTL &mo NUMROW    &kp SPC &mo CONFIG &tog GAMING
                         >;
                 };
         };
