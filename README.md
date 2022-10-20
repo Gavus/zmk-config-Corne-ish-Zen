@@ -1,7 +1,7 @@
 # Corne-ish Zen Custom Configuration
 
-## Build locally using podman
-Building locally is incredibly easy using podman.
+## Build locally using docker or podman
+Building locally is incredibly easy using a container manager.
 ```
-./podman-build.sh
+./container-build.sh
 ```
